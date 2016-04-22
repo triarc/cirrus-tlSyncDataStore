@@ -1,11 +1,10 @@
 define("tlSyncDataStore", ["require", "exports"], function (require, exports) {
     "use strict";
-    var ESyncKind;
     (function (ESyncKind) {
         ESyncKind[ESyncKind["ReadOnly"] = 0] = "ReadOnly";
         ESyncKind[ESyncKind["ReadUpdate"] = 1] = "ReadUpdate";
-    })(ESyncKind || (ESyncKind = {}));
-    var EFieldType;
+    })(exports.ESyncKind || (exports.ESyncKind = {}));
+    var ESyncKind = exports.ESyncKind;
     (function (EFieldType) {
         EFieldType[EFieldType["Text"] = 0] = "Text";
         EFieldType[EFieldType["Numeric"] = 1] = "Numeric";
@@ -14,7 +13,8 @@ define("tlSyncDataStore", ["require", "exports"], function (require, exports) {
         EFieldType[EFieldType["JsonObject"] = 4] = "JsonObject";
         EFieldType[EFieldType["JsonArray"] = 5] = "JsonArray";
         EFieldType[EFieldType["FloatingNumeric"] = 6] = "FloatingNumeric";
-    })(EFieldType || (EFieldType = {}));
+    })(exports.EFieldType || (exports.EFieldType = {}));
+    var EFieldType = exports.EFieldType;
     var SyncDataStoreService = (function () {
         function SyncDataStoreService($q) {
             this.$q = $q;
