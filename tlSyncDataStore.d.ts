@@ -1,9 +1,9 @@
-declare module "tlSyncDataStore" {
-    export enum ESyncKind {
+declare module Triarc.Sync {
+    enum ESyncKind {
         ReadOnly = 0,
         ReadUpdate = 1,
     }
-    export enum EFieldType {
+    enum EFieldType {
         Text = 0,
         Numeric = 1,
         Date = 2,
@@ -12,27 +12,27 @@ declare module "tlSyncDataStore" {
         JsonArray = 5,
         FloatingNumeric = 6,
     }
-    export interface ISyncField {
+    interface ISyncField {
         name: string;
         fieldType: EFieldType;
         dbType: string;
         index?: boolean;
     }
-    export interface ISyncTypeCollection {
+    interface ISyncTypeCollection {
         types: ISyncType[];
         name: string;
         controller: string;
         action: string;
         deleteOnUnregister: boolean;
     }
-    export interface ISyncType {
+    interface ISyncType {
         fields: ISyncField[];
         name: string;
         mapperJavaClass?: string;
         timestampColumn: string;
         notificationMethod?: string;
     }
-    export interface ISyncDataStore {
+    interface ISyncDataStore {
         initialize(webApiPath: string, syncTypes: ISyncTypeCollection[], versionNumber: string, success?: () => void, error?: (err: string) => void): any;
         register(cookie: string, success?: (err: string) => void, error?: (err: string) => void): any;
         resetDb(success?: () => void, error?: (err: string) => void): any;
@@ -48,12 +48,12 @@ declare module "tlSyncDataStore" {
         lockSync(sucess: (lockId: string) => void, error: (err: string) => void): any;
         unlockSync(lockId: any, success: () => void, error: (err: string) => void): any;
     }
-    export interface IChangeSet<T, TKey> {
+    interface IChangeSet<T, TKey> {
         added: T[];
         updated: T[];
         deleted: TKey[];
     }
-    export interface ISyncDataStoreService {
+    interface ISyncDataStoreService {
         isSyncCapable: boolean;
         setDebounceInterval(interval: number): any;
         initialize(webApiPath: string, syncTypes: ISyncTypeCollection[], versionNumber: string): angular.IPromise<void>;
@@ -70,7 +70,7 @@ declare module "tlSyncDataStore" {
         isAuthenticated(): angular.IPromise<boolean>;
         lockSync(): angular.IPromise<ISyncLock>;
     }
-    export interface ISyncLock {
+    interface ISyncLock {
         lockId: string;
         unlock(): angular.IPromise<void>;
     }
