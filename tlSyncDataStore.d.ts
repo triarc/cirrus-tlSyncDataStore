@@ -75,3 +75,4 @@ declare module Triarc.Sync {
         unlock(): angular.IPromise<void>;
     }
 }
+declare var SyncDataStore: Triarc.Sync.ISyncDataStore;
