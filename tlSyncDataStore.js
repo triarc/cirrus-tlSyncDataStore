@@ -53,6 +53,7 @@ var Triarc;
                 return deferred.promise;
             };
             SyncDataStoreService.prototype.requestSync = function (reason, force) {
+                var _this = this;
                 var deferred = this.$q.defer();
                 console.log("request sync called, because:" + reason);
                 if (this.timeout !== null) {
@@ -60,14 +61,14 @@ var Triarc;
                 }
                 var sync = function () {
                     SyncDataStore.requestSync(function () { return deferred.resolve(); }, function (err) { return deferred.reject(err); });
-                    this.timeout = null;
+                    _this.timeout = null;
                 };
                 if (force === true) {
                     sync();
                 }
                 else {
                     this.timeout = setTimeout(function () {
-                        this.timeout = null;
+                        _this.timeout = null;
                         sync();
                     }, this.interval);
                 }
