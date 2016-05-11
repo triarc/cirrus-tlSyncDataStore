@@ -87,6 +87,9 @@ var Triarc;
             SyncDataStoreService.prototype.listen = function (typeName, success, error) {
                 SyncDataStore.listen(typeName, success, error);
             };
+            SyncDataStoreService.prototype.confirmNotification = function (success, error) {
+                SyncDataStore.confirmNotification(success, error);
+            };
             SyncDataStoreService.prototype.onError = function (collectionName, success, error) {
                 SyncDataStore.onError(collectionName, success, error);
             };
@@ -121,7 +124,7 @@ var Triarc;
             };
             SyncDataStoreService.$inject = ["$q"];
             return SyncDataStoreService;
-        }());
+        })();
         var MockSyncDataStoreService = (function () {
             function MockSyncDataStoreService($q) {
                 this.$q = $q;
@@ -169,11 +172,12 @@ var Triarc;
             });
             ;
             MockSyncDataStoreService.prototype.listen = function (typeName, success, error) { };
+            MockSyncDataStoreService.prototype.confirmNotification = function (success, error) { };
             MockSyncDataStoreService.prototype.onError = function (collectionName, success, error) { };
             MockSyncDataStoreService.prototype.onSyncStateChanged = function (success, error) { };
             MockSyncDataStoreService.$inject = ["$q"];
             return MockSyncDataStoreService;
-        }());
+        })();
         var mod = angular.module("tlSyncDataStore", []);
         var serviceName = 'tlSyncDataStore';
         if (typeof SyncDataStore !== "undefined") {
