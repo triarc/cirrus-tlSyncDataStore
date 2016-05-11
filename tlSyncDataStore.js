@@ -87,8 +87,8 @@ var Triarc;
             SyncDataStoreService.prototype.listen = function (typeName, success, error) {
                 SyncDataStore.listen(typeName, success, error);
             };
-            SyncDataStoreService.prototype.confirmNotification = function (success, error) {
-                SyncDataStore.confirmNotification(success, error);
+            SyncDataStoreService.prototype.confirmNotification = function (typeName, success, error) {
+                SyncDataStore.confirmNotification(typeName, success, error);
             };
             SyncDataStoreService.prototype.onError = function (collectionName, success, error) {
                 SyncDataStore.onError(collectionName, success, error);
@@ -172,7 +172,7 @@ var Triarc;
             });
             ;
             MockSyncDataStoreService.prototype.listen = function (typeName, success, error) { };
-            MockSyncDataStoreService.prototype.confirmNotification = function (success, error) { };
+            MockSyncDataStoreService.prototype.confirmNotification = function (typeName, success, error) { };
             MockSyncDataStoreService.prototype.onError = function (collectionName, success, error) { };
             MockSyncDataStoreService.prototype.onSyncStateChanged = function (success, error) { };
             MockSyncDataStoreService.$inject = ["$q"];

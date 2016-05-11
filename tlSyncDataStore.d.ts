@@ -41,7 +41,7 @@ declare module Triarc.Sync {
         getLastUpdateTimestamp(collectionName: string, success?: (timestamp: string) => void, error?: (err: string) => void): any;
         isSyncing(success?: (isSyncing: string) => void, error?: (err: string) => void): any;
         listen(typeName: string, success: (changeset: IChangeSet<any, any>) => void, error: (err: string) => void): any;
-        confirmNotification(success: () => void, error: (err: string) => void): void;
+        confirmNotification(typeName: string, success: () => void, error: (err: string) => void): void;
         onError(collectionName: string, success: (errorMessage: string) => void, error: (err: string) => void): any;
         onSyncStateChanged(success: (state: string, collectionName: string) => void, error: (err: string) => void): any;
         createReport(errorDescription: string, success: () => void, error: (err: string) => void): any;
@@ -65,7 +65,7 @@ declare module Triarc.Sync {
         getLastUpdateTimestamp(collectionName: string): angular.IPromise<string>;
         isSyncing(): angular.IPromise<boolean>;
         listen(typeName: string, success: (changeset: IChangeSet<any, any>) => void, error: (err: string) => void): void;
-        confirmNotification(success: () => void, error: (err: string) => void): void;
+        confirmNotification(typeName: string, success: () => void, error: (err: string) => void): void;
         onError(collectionName: string, success: (changeset: string) => void, error: (err: string) => void): void;
         onSyncStateChanged(success: (state: string) => void, error: (err: string) => void): void;
         createReport(errorDescription: string): angular.IPromise<void>;
