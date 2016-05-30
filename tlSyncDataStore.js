@@ -86,13 +86,19 @@ var Triarc;
             };
             SyncDataStoreService.prototype.listen = function (typeName, success, error) {
                 var _this = this;
-                SyncDataStore.listen(typeName, function (changeSet) {
+                SyncDataStore.listen(typeName, function (changeSetCallbackString) {
+                    var changeSetCallback = angular.fromJson(changeSetCallbackString);
+                    var changeSet = changeSetCallback.changeSet;
+                    if (changeSet.added.length === 0 && changeSet.updated.length === 0 && changeSet.deleted.length === 0)
+                        return;
+                    Triarc.Data.convertDateStringsToDates(changeSet);
                     try {
-                        if (angular.isFunction(success))
-                            success(changeSet);
+                        if (angular.isFunction(success)) {
+                            success(changeSetCallback);
+                        }
                     }
                     catch (err) {
-                        _this.confirmNotification(changeSet.notificationId, null, null);
+                        _this.confirmNotification(changeSetCallback.notificationId, null, null);
                     }
                 }, error);
             };

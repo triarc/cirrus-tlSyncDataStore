@@ -44,7 +44,7 @@ declare module Triarc.Sync {
         requestSync(success?: () => void, error?: (err: string) => void): any;
         getLastUpdateTimestamp(collectionName: string, success?: (timestamp: string) => void, error?: (err: string) => void): any;
         isSyncing(success?: (isSyncing: string) => void, error?: (err: string) => void): any;
-        listen(typeName: string, success: (changeset: IListenCallback<any, any>) => void, error: (err: string) => void): any;
+        listen(typeName: string, success: (changeset: string) => void, error: (err: string) => void): any;
         confirmNotification(typeName: string, success: () => void, error: (err: string) => void): void;
         onError(collectionName: string, success: (errorMessage: string) => void, error: (err: string) => void): any;
         onSyncStateChanged(success: (state: string, collectionName: string) => void, error: (err: string) => void): any;
