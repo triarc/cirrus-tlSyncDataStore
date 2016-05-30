@@ -89,8 +89,10 @@ var Triarc;
                 SyncDataStore.listen(typeName, function (changeSetCallbackString) {
                     var changeSetCallback = angular.fromJson(changeSetCallbackString);
                     var changeSet = changeSetCallback.changeSet;
-                    if (changeSet.added.length === 0 && changeSet.updated.length === 0 && changeSet.deleted.length === 0)
+                    if (changeSet.added.length === 0 && changeSet.updated.length === 0 && changeSet.deleted.length === 0) {
+                        _this.confirmNotification(changeSetCallback.notificationId, null, null);
                         return;
+                    }
                     Triarc.Data.convertDateStringsToDates(changeSet);
                     try {
                         if (angular.isFunction(success)) {
