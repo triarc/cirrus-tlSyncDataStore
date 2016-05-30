@@ -32,6 +32,10 @@ declare module Triarc.Sync {
         timestampColumn: string;
         notificationMethod?: string;
     }
+    interface IListenCallback<T, TKey> {
+        changeSet: IChangeSet<T, TKey>;
+        notificationId: string;
+    }
     interface ISyncDataStore {
         initialize(webApiPath: string, syncTypes: ISyncTypeCollection[], versionNumber: string, success?: () => void, error?: (err: string) => void): any;
         register(cookie: string, success?: (err: string) => void, error?: (err: string) => void): any;
@@ -40,7 +44,7 @@ declare module Triarc.Sync {
         requestSync(success?: () => void, error?: (err: string) => void): any;
         getLastUpdateTimestamp(collectionName: string, success?: (timestamp: string) => void, error?: (err: string) => void): any;
         isSyncing(success?: (isSyncing: string) => void, error?: (err: string) => void): any;
-        listen(typeName: string, success: (changeset: IChangeSet<any, any>) => void, error: (err: string) => void): any;
+        listen(typeName: string, success: (changeset: IListenCallback<any, any>) => void, error: (err: string) => void): any;
         confirmNotification(typeName: string, success: () => void, error: (err: string) => void): void;
         onError(collectionName: string, success: (errorMessage: string) => void, error: (err: string) => void): any;
         onSyncStateChanged(success: (state: string, collectionName: string) => void, error: (err: string) => void): any;
@@ -64,7 +68,7 @@ declare module Triarc.Sync {
         requestSync(reason: string, force?: boolean): angular.IPromise<void>;
         getLastUpdateTimestamp(collectionName: string): angular.IPromise<string>;
         isSyncing(): angular.IPromise<boolean>;
-        listen(typeName: string, success: (changeset: IChangeSet<any, any>) => void, error: (err: string) => void): void;
+        listen(typeName: string, success: (changeset: IListenCallback<any, any>) => void, error: (err: string) => void): void;
         confirmNotification(typeName: string, success: () => void, error: (err: string) => void): void;
         onError(collectionName: string, success: (changeset: string) => void, error: (err: string) => void): void;
         onSyncStateChanged(success: (state: string) => void, error: (err: string) => void): void;
