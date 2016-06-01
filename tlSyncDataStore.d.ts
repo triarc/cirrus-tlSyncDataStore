@@ -80,5 +80,50 @@ declare module Triarc.Sync {
         lockId: string;
         unlock(): angular.IPromise<void>;
     }
+    class SyncDataStoreService implements ISyncDataStoreService {
+        private $q;
+        static $inject: string[];
+        private interval;
+        private timeout;
+        constructor($q: angular.IQService);
+        isSyncCapable: boolean;
+        setDebounceInterval(interval: number): void;
+        initialize(webApiPath: string, syncTypes: ISyncTypeCollection[], versionNumber: string): angular.IPromise<void>;
+        register(cookie: string): angular.IPromise<void>;
+        resetDb(): angular.IPromise<void>;
+        unRegister(): angular.IPromise<void>;
+        requestSync(reason: string, force?: boolean): angular.IPromise<void>;
+        getLastUpdateTimestamp(collectionName: string): angular.IPromise<string>;
+        isSyncing(): angular.IPromise<boolean>;
+        listen(typeName: string, success: (changeset: IListenCallback<any, any>) => void, error: (err: string) => void): void;
+        confirmNotification(notificationId: string, success: () => void, error: (err: string) => void): void;
+        onError(collectionName: string, success: (errorMsg: string) => void, error: (err: string) => void): void;
+        onSyncStateChanged(success: (state: string) => void, error: (err: string) => void): void;
+        createReport(errorDescription: string): angular.IPromise<void>;
+        isAuthenticated(): angular.IPromise<boolean>;
+        lockSync(): angular.IPromise<ISyncLock>;
+        private unlockSync(lockId);
+    }
+    class MockSyncDataStoreService implements ISyncDataStoreService {
+        private $q;
+        static $inject: string[];
+        constructor($q: angular.IQService);
+        setDebounceInterval(interval: number): void;
+        initialize(webApiPath: string, syncTypes: ISyncTypeCollection[], versionNumber: string): angular.IPromise<void>;
+        register(cookie: string): angular.IPromise<void>;
+        resetDb(): angular.IPromise<void>;
+        unRegister(): angular.IPromise<void>;
+        requestSync(reason: string, force?: boolean): angular.IPromise<void>;
+        getLastUpdateTimestamp(collectionName: string): angular.IPromise<string>;
+        isSyncing(): angular.IPromise<boolean>;
+        createReport(errorDescription: string): angular.IPromise<void>;
+        isAuthenticated(): angular.IPromise<boolean>;
+        lockSync(): angular.IPromise<ISyncLock>;
+        isSyncCapable: boolean;
+        listen(typeName: string, success: (changeset: IListenCallback<any, any>) => void, error: (err: string) => void): void;
+        confirmNotification(typeName: string, success: () => void, error: (err: string) => void): void;
+        onError(collectionName: string, success: (changeset: string) => void, error: (err: string) => void): void;
+        onSyncStateChanged(success: (state: string) => void, error: (err: string) => void): void;
+    }
 }
 declare var SyncDataStore: Triarc.Sync.ISyncDataStore;

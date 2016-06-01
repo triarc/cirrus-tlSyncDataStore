@@ -21,6 +21,7 @@ var Triarc;
             function SyncDataStoreService($q) {
                 this.$q = $q;
                 this.interval = 1000;
+                this.timeout = null;
             }
             Object.defineProperty(SyncDataStoreService.prototype, "isSyncCapable", {
                 get: function () {
@@ -56,7 +57,7 @@ var Triarc;
                 var _this = this;
                 var deferred = this.$q.defer();
                 console.log("request sync called, because:" + reason);
-                if (this.timeout !== null) {
+                if (angular.isNumber(this.timeout)) {
                     clearTimeout(this.timeout);
                 }
                 var sync = function () {
@@ -68,7 +69,6 @@ var Triarc;
                 }
                 else {
                     this.timeout = setTimeout(function () {
-                        _this.timeout = null;
                         sync();
                     }, this.interval);
                 }
@@ -142,6 +142,7 @@ var Triarc;
             SyncDataStoreService.$inject = ["$q"];
             return SyncDataStoreService;
         }());
+        Sync.SyncDataStoreService = SyncDataStoreService;
         var MockSyncDataStoreService = (function () {
             function MockSyncDataStoreService($q) {
                 this.$q = $q;
@@ -195,6 +196,7 @@ var Triarc;
             MockSyncDataStoreService.$inject = ["$q"];
             return MockSyncDataStoreService;
         }());
+        Sync.MockSyncDataStoreService = MockSyncDataStoreService;
         var mod = angular.module("tlSyncDataStore", []);
         var serviceName = 'tlSyncDataStore';
         if (typeof SyncDataStore !== "undefined") {
